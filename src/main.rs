@@ -1,6 +1,8 @@
-use std::{char::from_u32, fs, io::Read};
+use std::{char::from_u32, env, fs, io::Read};
 fn main() {
-    let text = get_file();
+    let args: Vec<String> = env::args().collect();
+    let path = &args[1];
+    let text = get_file(&path);
     interpret(&text.chars().collect());
 }
 fn interpret(c: &Vec<char>) {
@@ -36,7 +38,7 @@ fn interpret(c: &Vec<char>) {
     }
 }
 
-fn get_file() -> String {
-    let text = fs::read_to_string("./main.bf").expect("Should have been able to read the file");
+fn get_file(path: &str) -> String {
+    let text = fs::read_to_string(path).expect("Should have been able to read the file");
     return text;
 }
